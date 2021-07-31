@@ -1,5 +1,7 @@
 ## todolist
 + 学习navmenu的写法 src/layout
++ 关闭husky
+  + git hooks  pre-commit  .sample不执行
 
 
 
@@ -9,3 +11,6 @@
 + /score?_sort=chinese&_order=desc
 + /score?_sort=chinese&_order=desc&_start=21&_limit=2
 + /score?_sort=chinese&_order=desc&_start=21&_end=2
+
+
+## done

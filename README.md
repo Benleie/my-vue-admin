@@ -1,5 +1,6 @@
 ## todolist
 + 学习navmenu的写法 src/layout
++ JSON.stringify 换行美化
 
 
 

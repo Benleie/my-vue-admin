@@ -1,7 +1,6 @@
 ## todolist
 + 学习navmenu的写法 src/layout
-+ 关闭husky
-  + git hooks  pre-commit  .sample不执行
+
 
 
 
@@ -14,3 +13,5 @@
 
 
 ## done
++ 关闭husky
+  + git hooks  pre-commit  .sample不执行

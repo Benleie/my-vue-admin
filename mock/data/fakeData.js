@@ -24,7 +24,10 @@ for(let i = 1; i <= 60; i++) {
 }
 
 
-const jsonData = { size: scoreData.length,  score: scoreData }
+
+// const jsonData = { size: scoreData.length,  score: scoreData }
+const jsonData = { score: scoreData }
+
 fs.writeFileSync(
   path.join(__dirname, 'table.json'), 
   JSON.stringify(jsonData)

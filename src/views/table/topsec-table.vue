@@ -5,29 +5,36 @@
     <el-table
       :data="tableData"
       border
-      style="width: 500px"
+      style="width: 600px"
     >
       <el-table-column
         prop="id"
         label="学号"
         width="50"
       />
-      <el-table-column prop="name" label="姓名" width="80" />
+      <el-table-column prop="name" label="姓名" width="200" />
       <el-table-column prop="duration" label="学习时长" width="80" />
       <el-table-column prop="chinese" label="语文" width="50" />
       <el-table-column prop="math" label="数学" width="50" />
       <el-table-column prop="english" label="英语" width="50" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
+    <el-pagination background layout="prev, pager, next" :total="60" />
+    <el-button @click="showDialog = true">click me to open childDialog</el-button>
+    <el-dialog :visible.sync="showDialog">
+      <div>hhhh</div>
+      <child-dialog />
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // import x from ''
 /* eslint-disable */
+import ChildDialog from '@/components/Ben/firstComponent'
 import axios from 'axios'
 export default {
-  components: {},
+  components: { ChildDialog },
   data() {
     return {
       tableData: [
@@ -48,11 +55,12 @@ export default {
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
         }
-      ]
+      ],
+      showDialog: false
     }
   },
   beforeMount() {
-    axios.get('http://localhost:3333/score')
+    axios.get('http://localhost:3333/score?_limit=7')
       .then((res) => {
         console.log(res.data)
         this.tableData = res.data

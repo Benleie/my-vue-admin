@@ -21,6 +21,10 @@
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="60" />
     <el-button @click="showDialog = true">click me to open childDialog</el-button>
+    <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
+    <template v-if="showChild">
+      <child-dialog :visible.sync="showChild" />
+    </template>
     <el-dialog :visible.sync="showDialog">
       <div>hhhh</div>
       <child-dialog />
@@ -56,7 +60,8 @@ export default {
           address: '上海市普陀区金沙江路 1516 弄'
         }
       ],
-      showDialog: false
+      showDialog: false,
+      showChild: false,
     }
   },
   beforeMount() {

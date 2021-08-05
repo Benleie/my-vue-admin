@@ -19,7 +19,8 @@
       <el-table-column prop="english" label="英语" width="50" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
-    <el-pagination background layout="prev, pager, next" :total="60" />
+    <el-pagination background layout="prev, pager, next" :current-page="currentPage" :page-size="5" :total="60" @current-change="handleChange" />
+    <el-button @click="currentPage++">change-current</el-button>
     <el-button @click="showDialog = true">click me to open childDialog</el-button>
     <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     <template v-if="showChild">
@@ -62,16 +63,21 @@ export default {
       ],
       showDialog: false,
       showChild: false,
+      currentPage: 1
     }
   },
   beforeMount() {
-    axios.get('http://localhost:3333/score?_limit=7')
+    axios.get('http://localhost:3333/score?_limit=5')
       .then((res) => {
-        console.log(res.data)
         this.tableData = res.data
       })
   },
-  methods: {}
+  methods: {
+    handleChange(e) {
+      console.log(e)
+      console.log(this.currentPage)
+    }
+  }
 }
 </script>
 

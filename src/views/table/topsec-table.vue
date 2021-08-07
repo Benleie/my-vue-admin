@@ -26,7 +26,7 @@
       <el-table-column prop="english" label="英语" width="50" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
-    <el-pagination background layout="prev, pager, next" :current-page.sync="currentPage" :page-size="5" :total="60" @current-change="handleChange" />
+    <el-pagination background layout="prev, pager, next, total" :current-page.sync="currentPage" :page-size="5" :total="60" @current-change="handleChange" />
     <el-button @click="currentPage++">change-current</el-button>
     <el-button @click="showDialog = true">click me to open childDialog</el-button>
     <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
@@ -44,7 +44,6 @@
 // import x from ''
 /* eslint-disable */
 import ChildDialog from '@/components/Ben/firstComponent'
-import axios from 'axios'
 import { fetchTableData } from '@/api/ben'
 
 export default {
@@ -96,9 +95,9 @@ export default {
 
     searchData() {
       const params = this.search 
-        ? { id: this.search} 
+        ? { id: this.search } 
         : { _limit: 5, _page: this.currentPage }
-        
+
       fetchTableData(params).then((res) => {
           this.tableData = res.data
       })

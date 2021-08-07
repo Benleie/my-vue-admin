@@ -1,4 +1,5 @@
 ## todolist
++ pagination layout通过slot添加'共有多少条记录'
 + 学习navmenu的写法 src/layout
 + JSON.stringify 换行美化
 
@@ -12,6 +13,8 @@
 + /score?_sort=chinese&_order=desc
 + /score?_sort=chinese&_order=desc&_start=21&_limit=2
 + /score?_sort=chinese&_order=desc&_start=21&_end=2
++ /score?name_like=sa 对某个字段进行查询
++ /score?q=sa  
 
 ## element
 + dialog

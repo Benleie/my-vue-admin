@@ -2,6 +2,13 @@
 <template>
   <div class="topsec-table">
     <h1>topsec-table</h1>
+    <el-input
+      v-model="search"
+      placeholder="请输入学号或姓名"
+      prefix-icon="el-icon-search"
+      style="width:300px;"
+      @change="searchData"
+    />
     <el-table
       :data="tableData"
       border
@@ -63,7 +70,8 @@ export default {
       ],
       showDialog: false,
       showChild: false,
-      currentPage: 1
+      currentPage: 1,
+      search: ''
     }
   },
   beforeMount() {
@@ -80,6 +88,17 @@ export default {
           _limit: 5,
           _page: this.currentPage
         }
+      }).then((res) => {
+          this.tableData = res.data
+      })
+    },
+
+    searchData() {
+      const params = this.search 
+        ? { id: this.search} 
+        : { _limit: 5, _page: this.currentPage }
+      axios.get('http://localhost:3333/score', {
+        params
       }).then((res) => {
           this.tableData = res.data
       })

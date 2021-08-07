@@ -26,9 +26,8 @@
       <el-table-column prop="english" label="英语" width="50" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
-    <el-pagination background layout="prev, pager, next, total" :current-page.sync="currentPage" :page-size="5" :total="60" @current-change="handleChange" />
-    <el-button @click="currentPage++">change-current</el-button>
-    <el-button @click="showDialog = true">click me to open childDialog</el-button>
+    <el-pagination background layout="prev, pager, next, total" :current-page.sync="currentPage" :page-size="5" :total="totalCounts" :hide-on-single-page="true" @current-change="handleChange" />
+    <el-button @click="getClicked">click me to do something</el-button>
     <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     <template v-if="showChild">
       <child-dialog :visible.sync="showChild" />
@@ -72,6 +71,7 @@ export default {
       showDialog: false,
       showChild: false,
       currentPage: 1,
+      totalCounts: 1,
       search: ''
     }
   },
@@ -90,6 +90,7 @@ export default {
       })
       .then((res) => {
           this.tableData = res.data
+          this.totalCounts = 60
       })
     },
 
@@ -100,7 +101,13 @@ export default {
 
       fetchTableData(params).then((res) => {
           this.tableData = res.data
+          this.totalCounts = res.data.length < 5 ? 1 : 60
       })
+    },
+
+    getClicked() {
+      // this.showDialog = true;
+      console.log(this.totalCounts)
     }
   }
 }

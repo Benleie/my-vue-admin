@@ -45,6 +45,8 @@
 /* eslint-disable */
 import ChildDialog from '@/components/Ben/firstComponent'
 import axios from 'axios'
+import { fetchTableData } from '@/api/ben'
+
 export default {
   components: { ChildDialog },
   data() {
@@ -83,12 +85,11 @@ export default {
       this.getTableData()
     },
     getTableData() {
-      axios.get('http://localhost:3333/score', {
-        params: {
+      fetchTableData({
           _limit: 5,
           _page: this.currentPage
-        }
-      }).then((res) => {
+      })
+      .then((res) => {
           this.tableData = res.data
       })
     },
@@ -97,9 +98,8 @@ export default {
       const params = this.search 
         ? { id: this.search} 
         : { _limit: 5, _page: this.currentPage }
-      axios.get('http://localhost:3333/score', {
-        params
-      }).then((res) => {
+        
+      fetchTableData(params).then((res) => {
           this.tableData = res.data
       })
     }

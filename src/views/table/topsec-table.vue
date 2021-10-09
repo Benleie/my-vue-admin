@@ -1,7 +1,11 @@
 
 <template>
   <div class="topsec-table">
-    <h1>topsec-table</h1>
+    <h1 @copy="handleCopy($event)">topsec-table</h1>
+    <div class="btn-list">
+      <el-button @click="getClicked">click me to do something</el-button>
+      <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
+    </div>
     <el-input
       v-model="search"
       placeholder="请输入学号或姓名"
@@ -27,8 +31,7 @@
       <el-table-column prop="memo" label="备注" />
     </el-table>
     <el-pagination background layout="prev, pager, next, total" :current-page.sync="currentPage" :page-size="5" :total="totalCounts" :hide-on-single-page="true" @current-change="handleChange" />
-    <el-button @click="getClicked">click me to do something</el-button>
-    <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
+
     <template v-if="showChild">
       <child-dialog :visible.sync="showChild" />
     </template>
@@ -108,6 +111,11 @@ export default {
     getClicked() {
       // this.showDialog = true;
       console.log(this.totalCounts)
+    },
+
+    handleCopy(e) {
+      this.$message("hhh, you've copied something!")
+      console.log(e)
     }
   }
 }

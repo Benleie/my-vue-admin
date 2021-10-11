@@ -81,6 +81,14 @@ export default {
   beforeMount() {
     this.getTableData()
   },
+  beforeDestroy() {
+    this.$message("确定离开么？")
+    console.log(window);
+    window.addEventListener('beforeunload', (event) => {
+      console.log(event)
+      event.preventDefault();
+    })
+  },
   methods: {
     handleChange(e) {
       console.log(e)

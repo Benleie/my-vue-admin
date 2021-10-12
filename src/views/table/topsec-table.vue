@@ -176,15 +176,16 @@ export default {
           .attr("width", width)
           .attr("height", height)
       const g = svg.append("g")
-      // console.log(g.selectAll("circle"))
+      console.log(g.selectAll("circle"))
       g.selectAll("circle")
-          .data(data)
-          .join("circle")
+        .data(data)
+        .join("circle")
+        // .enter().append("circle")   // 数据绑定
           .attr("cx", ([x]) => x)
           .attr("cy", ([, y]) => y)
           .attr("r", 5)
           .attr("fill", (d, i) => d3.interpolateRainbow(i / 360))
-      
+      console.log(g.selectAll("circle"))
       const zoom = d3.zoom()
 				.scaleExtent([1, 40])
 				.on("zoom", zoomed);

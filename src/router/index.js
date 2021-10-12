@@ -72,8 +72,11 @@ export const constantRoutes = [
   },
   {
     path: '/',
+    redirect: '/table/topsec-table'
+  },
+  {
+    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',

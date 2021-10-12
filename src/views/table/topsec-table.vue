@@ -56,6 +56,7 @@
 import ChildDialog from '@/components/Ben/firstComponent'
 import { fetchTableData } from '@/api/ben'
 import * as d3 from 'd3';
+import { event as d3Event } from "d3-selection"
 
 export default {
   components: { ChildDialog },
@@ -143,9 +144,19 @@ export default {
     },
 
     drawOne() {
+      // const zoom = d3.zoom().on("zoom", this.zoomedFn.bind(this))
+      const zoom = d3.zoom().on("zoom", this.zoomedFn())
       let p = d3.select("#canvas").selectAll("p").text("hello")
-      console.log(p)
+      d3.select("#canvas").call(zoom)
+          .transition().duration(750).call(zoom.transform, d3.zoomIdentity);
       console.log(d3.selection())
+    },
+
+    zoomedFn() {
+      const g = d3.select('#canvas').append('g')
+      console.log(d3)
+      console.log(d3Event)
+      g.attr("tranform", d3.event.transform)
     }
   }
 }
@@ -157,5 +168,8 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  #canvas {
+    border: 1px solid red;
+  }
 }
 </style>

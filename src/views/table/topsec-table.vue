@@ -7,6 +7,13 @@
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
     <div ref="scrollWraper" class="scroll-wrapper" />
+    <div id="canvas">
+      <div>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+      </div>
+    </div>
     <el-input
       v-model="search"
       placeholder="请输入学号或姓名"
@@ -48,6 +55,7 @@
 /* eslint-disable */
 import ChildDialog from '@/components/Ben/firstComponent'
 import { fetchTableData } from '@/api/ben'
+import * as d3 from 'd3';
 
 export default {
   components: { ChildDialog },
@@ -80,14 +88,16 @@ export default {
     }
   },
   beforeMount() {
-    console.log(window)
     window.addEventListener("resize", (event) => {
       console.log(event)
       console.log(new Date())
     })
-    this.getTableData()
+    // this.getTableData()
+
   },
-  mounted() {  },
+  mounted() { 
+    this.drawOne();
+  },
   beforeDestroy() {
     this.$message("确定离开么？")
     window.addEventListener('beforeunload', (event) => {
@@ -130,6 +140,12 @@ export default {
     handleCopy(e) {
       this.$message("hhh, you've copied something!")
       console.log(e)
+    },
+
+    drawOne() {
+      let p = d3.select("#canvas").selectAll("p").text("hello")
+      console.log(p)
+      console.log(d3.selection())
     }
   }
 }

@@ -7,12 +7,16 @@
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
     <div ref="scrollWraper" class="scroll-wrapper" />
-    <div id="canvas">
-      <div>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
+    <div class="d3-wrapper">
+      <div id="canvas">
+        <h3>hhh333</h3>
+        <div id="p-container">
+          <p>123</p>
+          <p>123</p>
+          <p>123</p>
+        </div>
       </div>
+      <svg />
     </div>
     <el-input
       v-model="search"
@@ -56,7 +60,6 @@
 import ChildDialog from '@/components/Ben/firstComponent'
 import { fetchTableData } from '@/api/ben'
 import * as d3 from 'd3';
-import { event as d3Event } from "d3-selection"
 
 export default {
   components: { ChildDialog },
@@ -98,6 +101,7 @@ export default {
   },
   mounted() { 
     this.drawOne();
+    this.drawSvg();
   },
   beforeDestroy() {
     this.$message("确定离开么？")
@@ -145,7 +149,7 @@ export default {
 
     drawOne() {
       // const zoom = d3.zoom().on("zoom", this.zoomedFn.bind(this))
-      const zoom = d3.zoom().on("zoom", this.zoomedFn())
+      const zoom = d3.zoom().scaleExtent([1, 40]).on("zoom", this.zoomedFn)
       let p = d3.select("#canvas").selectAll("p").text("hello")
       d3.select("#canvas").call(zoom)
           .transition().duration(750).call(zoom.transform, d3.zoomIdentity);
@@ -153,11 +157,43 @@ export default {
     },
 
     zoomedFn() {
-      const g = d3.select('#canvas').append('g')
-      console.log(d3)
-      console.log(d3Event)
+      const g = d3.select('#p-container')
+          .attr("width", 500)
+          .attr("height", 500)
+      // console.log(d3.event)
       g.attr("tranform", d3.event.transform)
-    }
+    },
+    // d3.js中的zoom缩放 http://www.qiutianaimeili.com/html/page/2019/10/sqbx59y0slf.html
+    drawSvg() {
+      const width = 500, height = 500
+      const randomX = d3.randomNormal(width / 2, 80),
+				randomY = d3.randomNormal(height / 2, 80),
+				data = d3.range(500).map(function() {
+					return [randomX(), randomY()];
+				});
+      
+      const svg = d3.select(".d3-wrapper").select('svg')
+          .attr("width", width)
+          .attr("height", height)
+      const g = svg.append("g")
+      // console.log(g.selectAll("circle"))
+      g.selectAll("circle")
+          .data(data)
+          .join("circle")
+          .attr("cx", ([x]) => x)
+          .attr("cy", ([, y]) => y)
+          .attr("r", 5)
+          .attr("fill", (d, i) => d3.interpolateRainbow(i / 360))
+      
+      const zoom = d3.zoom()
+				.scaleExtent([1, 40])
+				.on("zoom", zoomed);
+      svg.call(zoom);
+			function zoomed() {
+				g.attr("transform", d3.event.transform);
+			}
+      
+    },
   }
 }
 </script>
@@ -168,7 +204,11 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  .d3-wrapper {
+    display: flex;
+  }
   #canvas {
+    flex: 1;
     border: 1px solid red;
   }
 }

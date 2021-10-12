@@ -6,6 +6,7 @@
       <el-button @click="getClicked">click me to do something</el-button>
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
+    <div ref="scrollWraper" class="scroll-wrapper" />
     <el-input
       v-model="search"
       placeholder="请输入学号或姓名"
@@ -79,11 +80,16 @@ export default {
     }
   },
   beforeMount() {
+    console.log(window)
+    window.addEventListener("resize", (event) => {
+      console.log(event)
+      console.log(new Date())
+    })
     this.getTableData()
   },
+  mounted() {  },
   beforeDestroy() {
     this.$message("确定离开么？")
-    console.log(window);
     window.addEventListener('beforeunload', (event) => {
       console.log(event)
       event.preventDefault();

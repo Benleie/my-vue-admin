@@ -6,14 +6,12 @@
       <el-button @click="getClicked">click me to do something</el-button>
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
-    <div ref="scrollWraper" class="scroll-wrapper" />
     <div class="d3-wrapper">
-      <div id="canvas">
-        <h3>hhh333</h3>
-        <div id="p-container">
-          <p>123</p>
-          <p>123</p>
-          <p>123</p>
+      <div ref="scrollWraper" class="scroll-wrapper">
+        <div class="moveable-container">
+          <div>123</div>
+          <div>456</div>
+          <div>9867</div>
         </div>
       </div>
       <svg />
@@ -100,7 +98,6 @@ export default {
 
   },
   mounted() { 
-    this.drawOne();
     this.drawSvg();
   },
   beforeDestroy() {
@@ -147,22 +144,6 @@ export default {
       console.log(e)
     },
 
-    drawOne() {
-      // const zoom = d3.zoom().on("zoom", this.zoomedFn.bind(this))
-      const zoom = d3.zoom().scaleExtent([1, 40]).on("zoom", this.zoomedFn)
-      let p = d3.select("#canvas").selectAll("p").text("hello")
-      d3.select("#canvas").call(zoom)
-          .transition().duration(750).call(zoom.transform, d3.zoomIdentity);
-      console.log(d3.selection())
-    },
-
-    zoomedFn() {
-      const g = d3.select('#p-container')
-          .attr("width", 500)
-          .attr("height", 500)
-      // console.log(d3.event)
-      g.attr("tranform", d3.event.transform)
-    },
     // d3.js中的zoom缩放 http://www.qiutianaimeili.com/html/page/2019/10/sqbx59y0slf.html
     drawSvg() {
       const width = 500, height = 500
@@ -208,9 +189,22 @@ export default {
   .d3-wrapper {
     display: flex;
   }
-  #canvas {
+  .scroll-wrapper {
     flex: 1;
     border: 1px solid red;
+    .moveable-container {
+      display: flex;
+      > div {
+        width: 400px;
+        background-color: orange;
+        // & + div {
+        //   margin-left: 15px;
+        // }
+        &:not(:last-of-type) {
+          margin-right: 15px;
+        }
+      }
+    }
   }
 }
 </style>

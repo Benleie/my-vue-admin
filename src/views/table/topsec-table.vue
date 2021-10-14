@@ -6,7 +6,17 @@
       <el-button @click="getClicked">click me to do something</el-button>
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
-    <div class="d3-wrapper">
+    <div class="card-wrapper">
+      <section class="scroll-wrapper">
+        <div class="moveable-container">
+          <div>123</div>
+          <div>456</div>
+          <div>9867</div>
+        </div>
+      </section>
+      <section>center</section>
+    </div>
+    <!-- <div class="d3-wrapper">
       <div ref="scrollWraper" class="scroll-wrapper">
         <div class="moveable-container">
           <div>123</div>
@@ -15,7 +25,7 @@
         </div>
       </div>
       <svg />
-    </div>
+    </div> -->
     <el-input
       v-model="search"
       placeholder="请输入学号或姓名"
@@ -187,14 +197,26 @@ export default {
   flex-direction: column;
   padding: 20px;
   .d3-wrapper {
+    width: 100%;
     display: flex;
+  }
+  .card-wrapper {
+    display: flex;
+    > :last-child{
+      width: 400px;
+      height: 400px;
+      background-color: lightgray;
+    }
   }
   .scroll-wrapper {
     flex: 1;
+    // overflow: hidden;
     border: 1px solid red;
     .moveable-container {
+      background-color: gray;
       display: flex;
       > div {
+        flex-shrink: 0;
         width: 400px;
         background-color: orange;
         // & + div {
@@ -207,4 +229,6 @@ export default {
     }
   }
 }
+
+
 </style>

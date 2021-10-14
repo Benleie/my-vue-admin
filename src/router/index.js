@@ -112,6 +112,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/demo',
+    component: Layout,
+    redirect: '/demo/css',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/ben-demo/css'),
+        name: 'demoCss',
+        meta: { title: 'ben-demo', icon: 'money', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',

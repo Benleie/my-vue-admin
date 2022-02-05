@@ -24,7 +24,6 @@ export default {
     console.log('first child is mounted')
   },
   destroyed() {
-    debugger
     console.log('已经被销毁')
   },
   methods: {

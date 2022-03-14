@@ -2,6 +2,20 @@
 <template>
   <div class="topsec-table">
     <h1 @copy="handleCopy($event)">topsec-table</h1>
+    <el-form :model="formInline" inline>
+      <el-form-item label="Approved by">
+        <el-input v-model="formInline.user" placeholder="Approved by" />
+      </el-form-item>
+      <el-form-item label="Activity zone">
+        <el-select v-model="formInline.region" placeholder="Activity zone">
+          <el-option label="Zone one" value="shanghai" />
+          <el-option label="Zone two" value="beijing" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">Query</el-button>
+      </el-form-item>
+    </el-form>
     <div class="btn-list">
       <el-button @click="getClicked">click me to do something</el-button>
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
@@ -92,6 +106,10 @@ export default {
           address: '上海市普陀区金沙江路 1516 弄'
         }
       ],
+      formInline: {
+        user: '',
+        region: ''
+      },
       showDialog: false,
       showChild: false,
       currentPage: 1,
@@ -118,6 +136,9 @@ export default {
     })
   },
   methods: {
+    onSubmit() {
+      console.log('submit!');
+    },
     handleChange(e) {
       console.log(e)
       this.getTableData()

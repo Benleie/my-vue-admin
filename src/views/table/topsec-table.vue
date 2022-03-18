@@ -20,6 +20,9 @@
       <el-button @click="getClicked">click me to do something</el-button>
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
+    <template v-if="showChild">
+      <child-dialog :visible.sync="showChild" />
+    </template>
     <div class="card-wrapper">
       <section class="scroll-wrapper">
         <div class="moveable-container">
@@ -66,9 +69,6 @@
     </el-table>
     <el-pagination background layout="prev, pager, next, total" :current-page.sync="currentPage" :page-size="5" :total="totalCounts" :hide-on-single-page="true" @current-change="handleChange" />
 
-    <template v-if="showChild">
-      <child-dialog :visible.sync="showChild" />
-    </template>
     <el-dialog :visible.sync="showDialog">
       <div>hhhh</div>
       <child-dialog />
@@ -166,7 +166,7 @@ export default {
     },
 
     getClicked() {
-      // this.showDialog = true;
+      this.showDialog = true;
       console.log(this.totalCounts)
     },
 

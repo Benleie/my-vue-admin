@@ -1,7 +1,7 @@
 <template>
-  <div class="">
+  <div class="child">
     <h4>this is a child component</h4>
-    <el-button @click="emitFunc">点我传参</el-button>
+    <el-button @click="emitFunc">点我传参，深入李姐$event</el-button>
     <el-button v-if="visible" @click="hideMe">hide me and my family!</el-button>
   </div>
 </template>
@@ -33,8 +33,7 @@ export default {
       this.$emit('update:visible', this.showMe = false)
     },
     emitFunc() {
-      console.log('???')
-      this.$emit('pure', 'ggg')
+      this.$emit('pure', 'ggg', 'mmm')
     }
   }
 }

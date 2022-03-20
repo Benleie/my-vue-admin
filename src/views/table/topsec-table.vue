@@ -74,7 +74,7 @@
 
     <el-dialog :visible.sync="showDialog">
       <div>hhhh</div>
-      <child-dialog />
+      <child-dialog @pure="handlePureEmit($event, 111)" />
     </el-dialog>
   </div>
 </template>
@@ -142,9 +142,9 @@ export default {
     onSubmit() {
       console.log('submit!');
     },
-    handlePureEmit(str1) {
-      console.log('?????')
+    handlePureEmit(str1, str2) {
       console.log(str1)
+      console.log(str2)
     },
     handleChange(e) {
       console.log(e)

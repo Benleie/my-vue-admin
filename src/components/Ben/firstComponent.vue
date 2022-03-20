@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <h4>this is a child component</h4>
+    <el-button @click="emitFunc">点我传参</el-button>
     <el-button v-if="visible" @click="hideMe">hide me and my family!</el-button>
   </div>
 </template>
@@ -8,6 +9,7 @@
 <script>
 // import x from ''
 export default {
+  name: 'ChildDialog',
   components: {},
   props: {
     visible: {
@@ -29,6 +31,10 @@ export default {
   methods: {
     hideMe() {
       this.$emit('update:visible', this.showMe = false)
+    },
+    emitFunc() {
+      console.log('???')
+      this.$emit('pure', 'ggg')
     }
   }
 }

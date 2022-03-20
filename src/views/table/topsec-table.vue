@@ -21,7 +21,10 @@
       <el-button @click="showChild = true">click me to open child in template with v-if</el-button>
     </div>
     <template v-if="showChild">
-      <child-dialog :visible.sync="showChild" />
+      <child-dialog
+        :visible.sync="showChild"
+        @pure="handlePureEmit"
+      />
     </template>
     <div class="card-wrapper">
       <section class="scroll-wrapper">
@@ -138,6 +141,10 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!');
+    },
+    handlePureEmit(str1) {
+      console.log('?????')
+      console.log(str1)
     },
     handleChange(e) {
       console.log(e)
